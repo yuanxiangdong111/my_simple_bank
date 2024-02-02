@@ -44,7 +44,7 @@ jobs:
         # github 是在ubuntu-latest环境中预装的
         run: |
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.17.0/migrate.linux-amd64.tar.gz | tar xvz
-          sudo mv migrate.linux-amd64 /usr/bin/migrate
+          sudo mv migration.linux-amd64 /usr/bin/migrate
           which migrate
 
       - name: Run Migration

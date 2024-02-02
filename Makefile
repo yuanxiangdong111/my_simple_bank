@@ -5,6 +5,7 @@ createdb:
 dropdb:
 	docker exec -it postgres12 dropdb simple_bank
 migrateup:
+	# 迁移并创建数据库
 	migrate -path db/migration -database "postgres://root:12345678@localhost:5432/simple_bank?sslmode=disable" -verbose up
 migratedown:
 	migrate -path db/migration -database "postgres://root:12345678@localhost:5432/simple_bank?sslmode=disable" -verbose down

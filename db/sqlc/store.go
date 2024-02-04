@@ -6,24 +6,29 @@ import (
     "fmt"
 )
 
+type Store interface {
+    Querier
+    TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
+}
+
 // 做一个事务
-// 合成，使store具有*Queries的所有功能
-type Store struct {
+// 合成，使store具有*Queries的所有功能 与postgres真实连接
+type SQLStore struct {
     *Queries
     db *sql.DB
 }
 
 // db就是数据库
 // Queries是数据库中的查询，具有上下文功能 由sqlc生成
-func NewStore(db *sql.DB) *Store {
-    return &Store{
+func NewStore(db *sql.DB) Store {
+    return &SQLStore{
         Queries: New(db),
         db:      db,
     }
 }
 
 // fn 回调函数
-func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
+func (store *SQLStore) execTx(ctx context.Context, fn func(*Queries) error) error {
     tx, err := store.db.BeginTx(ctx, nil)
     if err != nil {
         return err
@@ -66,7 +71,7 @@ type TransferTxResult struct {
     ToEntry     Entry    `json:"to_entry"`     // 收款记录
 }
 
-func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
+func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
     var result TransferTxResult
 
     err := store.execTx(ctx, func(q *Queries) error {

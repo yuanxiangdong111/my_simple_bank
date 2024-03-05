@@ -17,7 +17,108 @@ import (
     "techschool/simplebank/util"
 )
 
-func TestGetAccount(t *testing.T) {
+// func TestCreateAccountApi(t *testing.T) {
+//     account := randomAccount()
+//
+//     testCases := []struct {
+//         name          string
+//         body          gin.H
+//         buildStub     func(store *mockdb.MockStore) // 预期返回的数据
+//         checkResponse func(t *testing.T, recorder *httptest.ResponseRecorder)
+//     }{
+//         {
+//             name: "OK",
+//             body: gin.H{
+//                 "owner":    account.Owner,
+//                 "balance":  account.Balance,
+//                 "currency": account.Currency,
+//             },
+//             buildStub: func(store *mockdb.MockStore) {
+//                 store.EXPECT().
+//                     CreateAccount(gomock.Any(), gomock.Eq(account)).
+//                     Times(1).
+//                     Return(account, nil)
+//             },
+//             checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+//                 require.Equal(t, http.StatusOK, recorder.Code)
+//             },
+//         },
+//     }
+// }
+
+// func TestListAccountApi(t *testing.T) {
+//
+//     n := 5
+//     accounts := make([]db.Account, n)
+//     for i := 0; i < n; i++ {
+//         accounts[i] = randomAccount()
+//     }
+//
+//     type Query struct {
+//         pageID   int
+//         pageSize int
+//     }
+//
+//     testCases := []struct {
+//         name          string
+//         query         Query
+//         buildStub     func(store *mockdb.MockStore) // 预期返回的数据
+//         checkResponse func(t *testing.T, recorder *httptest.ResponseRecorder)
+//     }{
+//         {
+//             name: "OK",
+//             query: Query{
+//                 pageID:   1,
+//                 pageSize: n,
+//             },
+//             buildStub: func(store *mockdb.MockStore) {
+//
+//                 arg := db.ListAccountsParams{
+//                     Limit:  int32(n),
+//                     Offset: 0,
+//                 }
+//
+//                 store.EXPECT().
+//                     ListAccounts(gomock.Any(), gomock.Eq(arg)).
+//                     Times(1).
+//                     Return(accounts, nil)
+//             },
+//             checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+//                 require.Equal(t, http.StatusOK, recorder.Code)
+//             },
+//         },
+//     }
+//
+//     for i := range testCases {
+//         tc := testCases[i]
+//         t.Run(tc.name, func(t *testing.T) {
+//             // 创建一个mock controller
+//             controller := gomock.NewController(t)
+//             defer controller.Finish()
+//
+//             // 创建一个mock store
+//             store := mockdb.NewMockStore(controller)
+//             // 调用buildStub 功能是为了在mock store上设置预期行为
+//             tc.buildStub(store)
+//
+//             // 创建一个server
+//             server := NewServer(store)
+//             // 创建一个http recorder 用于记录http response
+//             recorder := httptest.NewRecorder()
+//             url := "/accounts"
+//             request, err := http.NewRequest(http.MethodGet, url, nil)
+//             require.NoError(t, err)
+//
+//             // 调用server.router.ServeHTTP方法
+//             // 传入recorder和request
+//             // 对比预期结果
+//             server.router.ServeHTTP(recorder, request)
+//             tc.checkResponse(t, recorder)
+//         })
+//     }
+// }
+
+func TestGetAccountApi(t *testing.T) {
     account := randomAccount()
 
     testCases := []struct {

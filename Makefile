@@ -7,8 +7,13 @@ dropdb:
 migrateup:
 	# 迁移并创建数据库
 	migrate -path db/migration -database "postgres://root:12345678@localhost:5432/simple_bank?sslmode=disable" -verbose up
+migrateup1:
+	# 迁移并创建数据库
+	migrate -path db/migration -database "postgres://root:12345678@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
 migratedown:
 	migrate -path db/migration -database "postgres://root:12345678@localhost:5432/simple_bank?sslmode=disable" -verbose down
+migratedown1:
+	migrate -path db/migration -database "postgres://root:12345678@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
 showall:
 	ls -a
 sqlc:
@@ -19,4 +24,4 @@ server:
 	go run main.go
 mock:
 	mockgen -package mockdb -destination db/mock/store.go techschool/simplebank/db/sqlc Store
-.PHONY: createdb postgres dropdb migrateup migratedown showall sqlc test server mock
+.PHONY: createdb postgres dropdb migrateup migratedown migrateup1 migratedown1 showall sqlc test server mock

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/simpelbank.iml" filepath="$PROJECT_DIR$/.idea/simpelbank.iml" />
+      <module fileurl="file://$USER_HOME$/work/vod-mgmt/.idea/vod-mgmt.iml" filepath="$USER_HOME$/work/vod-mgmt/.idea/vod-mgmt.iml" />
     </modules>
   </component>
 </project>
